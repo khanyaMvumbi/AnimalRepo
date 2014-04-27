@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,23 +33,26 @@ public class FeedAnimal implements Serializable{
     @Embedded
     private Food food;
 
-    @OneToMany
+    @OneToMany  (cascade = CascadeType.ALL)
     @JoinColumn(name = "feedID")
-    private List<Animal> animal = new ArrayList<>();
+    private List<Animal> animal;
     
     private FeedAnimal(Builder build) {
         this.Id = build.Id;
         this.feed = build.feed;
         this.food = build.food;
-
     }
 
+    private FeedAnimal()
+    {
+        
+    }
     public static class Builder {
 
         private Long Id;
         private boolean feed;
         private Food food;
-        private List<Animal> animal = new ArrayList<>();
+        private List<Animal> animal;
 
         public Builder(boolean feed) {
             this.feed = feed;

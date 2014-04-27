@@ -8,7 +8,7 @@ package com.cput.my.wonder.domain;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,13 +26,11 @@ public class TransportAnimal implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String location;
-
-    @Column(unique = true)
+    private String location;    
     private String transportNumber;
     private String date;
 
-    @OneToMany
+    @OneToMany  (cascade = CascadeType.ALL)
     @JoinColumn(name = "transportID")
     private List<Animal> animals;
     
@@ -41,7 +39,7 @@ public class TransportAnimal implements Serializable {
         date = build.date;
         location = build.location;
         animals = build.animals;
-        location = build.transportNumber;
+        transportNumber = build.transportNumber;
         id = build.id;
     }
     private TransportAnimal()
