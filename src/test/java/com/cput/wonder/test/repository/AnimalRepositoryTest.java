@@ -87,7 +87,7 @@ public class AnimalRepositoryTest {
         repo.delete(animal);        
         Animal deletedAnimal = repo.findOne(id);        
         Assert.assertNull(deletedAnimal); 
-         //Assert.assertNull(deletedAnimal); 
+         
     }    
     @BeforeClass
     public static void setUpClass() throws Exception {
@@ -95,7 +95,9 @@ public class AnimalRepositoryTest {
     }
     
     @AfterClass
-    public static void tearDownClass() throws Exception {
+    public void tearDownClass() throws Exception {
+        repo = ctx.getBean(AnimalRepository.class);
+        repo.deleteAll();
     }
 
     @BeforeMethod
